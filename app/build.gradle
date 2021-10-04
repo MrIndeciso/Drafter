@@ -48,6 +48,11 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0-rc01"
+
     implementation project(":util")
     implementation project(":stylusview")
 }
