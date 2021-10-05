@@ -4,7 +4,9 @@ import androidx.fragment.app.viewModels
 import com.mrindeciso.drafter.databinding.FragmentDrawBinding
 import com.mrindeciso.drafter.viewModels.DrawViewModel
 import com.mrindeciso.util.viewbinding.ViewBoundFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
     FragmentDrawBinding::inflate
 ) {
