@@ -2,22 +2,28 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "88f6300adbf8a5b7a14d421d95d6e3be",
+    "identityHash": "dd20bea6178d9ad6dd6d9dafae9d54e2",
     "entities": [
       {
         "tableName": "brushes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `size` REAL NOT NULL, `color` INTEGER NOT NULL, `dashed` INTEGER NOT NULL, `opacity` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `style` TEXT NOT NULL, `anti_alias` INTEGER NOT NULL, `color` INTEGER NOT NULL, `alpha` INTEGER NOT NULL, `joinstyle` TEXT NOT NULL, `width` REAL NOT NULL, `cap` TEXT NOT NULL, `miter` REAL NOT NULL, `radius` REAL NOT NULL, `dx` REAL NOT NULL, `dy` REAL NOT NULL, `scolor` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "size",
-            "columnName": "size",
-            "affinity": "REAL",
+            "fieldPath": "style",
+            "columnName": "style",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "antialias",
+            "columnName": "anti_alias",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -27,21 +33,137 @@
             "notNull": true
           },
           {
-            "fieldPath": "dashed",
-            "columnName": "dashed",
+            "fieldPath": "alpha",
+            "columnName": "alpha",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "opacity",
-            "columnName": "opacity",
+            "fieldPath": "strokeStyle.join",
+            "columnName": "joinstyle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strokeStyle.width",
+            "columnName": "width",
             "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strokeStyle.cap",
+            "columnName": "cap",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "strokeStyle.miter",
+            "columnName": "miter",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shadow.radius",
+            "columnName": "radius",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shadow.dx",
+            "columnName": "dx",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shadow.dy",
+            "columnName": "dy",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shadow.shadowColor",
+            "columnName": "scolor",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "uid"
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "notes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `author` TEXT NOT NULL, `creation_time` INTEGER NOT NULL, `last_modified` INTEGER NOT NULL, `last_opened` INTEGER NOT NULL, `title` TEXT NOT NULL, `subtitle` TEXT NOT NULL, `category` TEXT NOT NULL, `drawings` TEXT NOT NULL, `text_insert` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created",
+            "columnName": "creation_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastModified",
+            "columnName": "last_modified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastOpened",
+            "columnName": "last_opened",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subtitle",
+            "columnName": "subtitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drawings",
+            "columnName": "drawings",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text_insert",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
           ],
           "autoGenerate": true
         },
@@ -52,7 +174,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '88f6300adbf8a5b7a14d421d95d6e3be')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dd20bea6178d9ad6dd6d9dafae9d54e2')"
     ]
   }
 }

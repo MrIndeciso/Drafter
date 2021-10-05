@@ -36,13 +36,3 @@ fun List<Line>.toPath(useQuad: Boolean = false): Path {
 
     return path
 }
-
-fun Brush.toPaint(): Paint {
-    val paint = Paint()
-    paint.color = this.color
-    paint.strokeWidth = this.size
-    paint.isAntiAlias = true
-    paint.strokeJoin = Paint.Join.ROUND
-    paint.style = Paint.Style.STROKE
-    return paint
-}

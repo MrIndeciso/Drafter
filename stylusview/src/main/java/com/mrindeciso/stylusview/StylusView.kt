@@ -13,13 +13,13 @@ class StylusView : View {
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
-    lateinit var viewController: StylusViewInterface
+    var viewController: StylusViewInterface? = null
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         canvas?.let {
-            viewController.onDraw(it)
+            viewController?.onDraw(it)
         }
     }
 
@@ -28,7 +28,7 @@ class StylusView : View {
         return if (event == null) {
             false
         } else {
-            val result = viewController.onTouchEvent(event)
+            val result = viewController?.onTouchEvent(event) ?: true
             invalidate()
             result
         }
@@ -36,7 +36,7 @@ class StylusView : View {
 
     override fun onDragEvent(event: DragEvent?): Boolean {
         return if (event != null) {
-            viewController.onDragEvent(event)
+            viewController?.onDragEvent(event) ?: true
         } else {
             super.onDragEvent(event)
         }

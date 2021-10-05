@@ -3,36 +3,42 @@ package com.mrindeciso.drafter.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.mrindeciso.util.data.Note
+import com.mrindeciso.util.db.dao.NoteDAO
 import com.mrindeciso.util.pref.StylusPrefManager
-import com.mrindeciso.util.stylus.PathEditor
 import com.mrindeciso.util.stylus.StylusViewController
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.sql.Timestamp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class DrawViewModel @Inject constructor (
     private val savedStateHandle: SavedStateHandle,
-    stylusPrefManager: StylusPrefManager,
-    pathEditor: PathEditor,
+    private val noteDao: NoteDAO,
+    private val stylusPrefManager: StylusPrefManager,
 ) : ViewModel() {
 
-    val note = Note(
-        0,
-        "",
-        Timestamp(System.currentTimeMillis()),
-        Timestamp(System.currentTimeMillis()),
-        "",
-        "",
-        "",
-        mutableListOf(),
-        mutableListOf()
-        )
+    private val note: Note
+        get() = savedStateHandle.get<Note>("note")!!
 
-    val controller = StylusViewController(
-        note,
-        stylusPrefManager,
-        pathEditor
-    )
+    private var _stylusViewController: StylusViewController? = null
+
+    val stylusViewController: StylusViewController
+        get() =
+            if (_stylusViewController != null)
+                _stylusViewController!!
+            else
+                StylusViewController(
+                    note, stylusPrefManager
+                ).also {
+                    _stylusViewController = it
+                }
+
+    suspend fun loadNote(noteid: Int) = withContext(Dispatchers.IO) {
+        if (!savedStateHandle.contains("note")) {
+            savedStateHandle.set("note", noteDao.getNote(noteid))
+        }
+    }
 
 }

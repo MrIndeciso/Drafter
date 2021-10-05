@@ -1,23 +1,16 @@
 package com.mrindeciso.util.stylus
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.view.DragEvent
 import android.view.MotionEvent
 import com.mrindeciso.stylusview.StylusViewInterface
-import com.mrindeciso.util.data.Brush
-import com.mrindeciso.util.data.Drawing
-import com.mrindeciso.util.data.Line
 import com.mrindeciso.util.data.Note
 import com.mrindeciso.util.pref.StylusPrefManager
-import com.mrindeciso.util.toPaint
 import com.mrindeciso.util.toPath
-import timber.log.Timber
 
 class StylusViewController (
     private val note: Note,
     private val stylusPrefManager: StylusPrefManager,
-    private val pathEditor: PathEditor,
 ) : StylusViewInterface {
 
     var currentDrawing: Int = 0
@@ -27,13 +20,11 @@ class StylusViewController (
     }
 
     override fun onDraw(canvas: Canvas) {
-        Timber.e(stylusPrefManager.useQuadInsteadOfLine.toString())
-
-        note.drawings.forEach { drawing ->
+        /*note.drawings.forEach { drawing ->
             val path = drawing.lines.toPath(stylusPrefManager.useQuadInsteadOfLine)
             val paint = pathEditor.modifyPath(drawing.brush.toPaint())
             canvas.drawPath(path, paint)
-        }
+        }*/
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

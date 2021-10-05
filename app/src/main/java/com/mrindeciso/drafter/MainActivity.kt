@@ -1,8 +1,11 @@
 package com.mrindeciso.drafter
 
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.mrindeciso.drafter.databinding.ActivityMainBinding
 import com.mrindeciso.drafter.ui.DrawFragment
 import com.mrindeciso.util.viewbinding.ViewBoundActivity
@@ -13,12 +16,10 @@ class MainActivity : ViewBoundActivity<ActivityMainBinding>(
     ActivityMainBinding::inflate
 ) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
 
-        supportFragmentManager.commit {
-            add<DrawFragment>(R.id.fragment_container_view)
-        }
+        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
     }
 
 }

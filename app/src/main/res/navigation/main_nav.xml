@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/drawFragment"
+        android:name="com.mrindeciso.drafter.ui.DrawFragment"
+        android:label="@string/fragment_draw" >
+        <argument
+            android:name="note_id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.mrindeciso.drafter.ui.HomeFragment"
+        android:label="@string/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_drawFragment"
+            app:destination="@id/drawFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mrindeciso.drafter.ui.SettingsFragment"
+        android:label="@string/fragment_settings" />
+</navigation>

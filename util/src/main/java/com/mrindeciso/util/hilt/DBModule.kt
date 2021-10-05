@@ -22,10 +22,16 @@ object DBModule {
         ctx,
         AppDB::class.java,
         "appdb"
-    ).build()
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Singleton
     @Provides
     fun provideBrushDao(db: AppDB) = db.brushDao()
+
+    @Singleton
+    @Provides
+    fun provideNoteDao(db: AppDB) = db.noteDao()
 
 }

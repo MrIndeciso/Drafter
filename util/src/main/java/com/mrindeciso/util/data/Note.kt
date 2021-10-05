@@ -1,30 +1,46 @@
 package com.mrindeciso.util.data
 
+import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
-import java.sql.Timestamp
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+import java.util.*
 
-@Entity
+@Parcelize
+@Entity(tableName = "notes")
 @JsonClass(generateAdapter = true)
 data class Note (
 
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 
+    @ColumnInfo(name = "author")
     val author: String,
 
-    val created: Timestamp,
+    @ColumnInfo(name = "creation_time")
+    val created: Date = Date(System.currentTimeMillis()),
 
-    var lastModified: Timestamp,
+    @ColumnInfo(name = "last_modified")
+    val lastModified: Date = Date(System.currentTimeMillis()),
 
-    var title: String,
+    @ColumnInfo(name = "last_opened")
+    val lastOpened: Date = Date(System.currentTimeMillis()),
 
-    var subtitle: String,
+    @ColumnInfo(name = "title")
+    val title: String,
 
-    var category: String,
+    @ColumnInfo(name = "subtitle")
+    val subtitle: String,
 
-    val drawings: MutableList<Drawing>,
+    @ColumnInfo(name = "category")
+    val category: String = "",
 
-    val text: MutableList<TextInsert>,
+    @ColumnInfo(name = "drawings")
+    val drawings: @RawValue MutableList<Drawing> = mutableListOf(),
 
-)
+    @ColumnInfo(name = "text_insert")
+    val text: @RawValue MutableList<TextInsert> = mutableListOf()
+
+) : Parcelable
