@@ -5,6 +5,8 @@ import com.mrindeciso.util.data.Line
 
 object PathComposer {
 
+    private const val INTERPOLATE_THRESHOLD = 25.0f
+
     fun convertLinesToPath(list: List<Line>): Path {
         val path = Path()
 

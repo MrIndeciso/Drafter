@@ -1,13 +1,17 @@
 package com.mrindeciso.drafter.ui
 
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mrindeciso.drafter.R
 import com.mrindeciso.drafter.databinding.FragmentDrawBinding
 import com.mrindeciso.drafter.ui.drawFragment.BrushButton
 import com.mrindeciso.drafter.ui.drawFragment.BrushButtonAdapter
 import com.mrindeciso.drafter.viewModels.DrawViewModel
+import com.mrindeciso.util.data.Brush
 import com.mrindeciso.util.graphics.renderPreview
 import com.mrindeciso.util.viewbinding.ViewBoundFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +30,7 @@ class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
     private val brushButtonList = mutableListOf<BrushButton>()
     private val brushAdapter = BrushButtonAdapter(brushButtonList) {
         drawViewModel.stylusViewController.selectedBrush = it.brush
+        drawViewModel.stylusViewController.isEntireLineEraser = it.isEraser
     }
 
     override fun onStart() {
@@ -41,7 +46,10 @@ class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
             drawViewModel.brushes.collect {
                 brushButtonList.clear()
                 brushButtonList.addAll(
-                    it.map { brush -> BrushButton("Brush", brush.renderPreview(), brush) }
+                    it.map { brush -> BrushButton("Brush", brush.renderPreview(), false, brush) }
+                )
+                brushButtonList.add(
+                    BrushButton("Eraser", AppCompatResources.getDrawable(requireContext(), R.drawable.ic_eraser)!!.toBitmap(64, 64), true, Brush())
                 )
                 brushAdapter.notifyDataSetChanged()
             }

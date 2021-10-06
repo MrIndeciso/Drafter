@@ -9,6 +9,8 @@ data class BrushButton(
 
     val image: Bitmap,
 
+    val isEraser: Boolean,
+
     val brush: Brush,
 
 )
