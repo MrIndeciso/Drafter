@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "dd20bea6178d9ad6dd6d9dafae9d54e2",
+    "identityHash": "9b50e66234147bd5a2078dfa8dee021d",
     "entities": [
       {
         "tableName": "brushes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `style` TEXT NOT NULL, `anti_alias` INTEGER NOT NULL, `color` INTEGER NOT NULL, `alpha` INTEGER NOT NULL, `joinstyle` TEXT NOT NULL, `width` REAL NOT NULL, `cap` TEXT NOT NULL, `miter` REAL NOT NULL, `radius` REAL NOT NULL, `dx` REAL NOT NULL, `dy` REAL NOT NULL, `scolor` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `style` TEXT NOT NULL, `anti_alias` INTEGER NOT NULL, `round_effect` INTEGER NOT NULL, `round_radius` REAL NOT NULL, `enable_dash` INTEGER NOT NULL, `color` INTEGER NOT NULL, `alpha` INTEGER NOT NULL, `joinstyle` TEXT NOT NULL, `width` REAL NOT NULL, `cap` TEXT NOT NULL, `miter` REAL NOT NULL, `on_len` REAL NOT NULL, `off_len` REAL NOT NULL, `phase` REAL NOT NULL, `radius` REAL NOT NULL, `dx` REAL NOT NULL, `dy` REAL NOT NULL, `scolor` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -23,6 +23,24 @@
           {
             "fieldPath": "antialias",
             "columnName": "anti_alias",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roundBrush",
+            "columnName": "round_effect",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "roundRadius",
+            "columnName": "round_radius",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "enableDash",
+            "columnName": "enable_dash",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -59,6 +77,24 @@
           {
             "fieldPath": "strokeStyle.miter",
             "columnName": "miter",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dashStyle.on",
+            "columnName": "on_len",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dashStyle.off",
+            "columnName": "off_len",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dashStyle.phase",
+            "columnName": "phase",
             "affinity": "REAL",
             "notNull": true
           },
@@ -174,7 +210,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dd20bea6178d9ad6dd6d9dafae9d54e2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9b50e66234147bd5a2078dfa8dee021d')"
     ]
   }
 }

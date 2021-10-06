@@ -26,8 +26,20 @@ data class Brush (
     @Embedded
     val strokeStyle: StrokeStyle = StrokeStyle(),
 
+    @Embedded
+    val dashStyle: DashStyle = DashStyle(),
+
     @ColumnInfo(name = "anti_alias")
     val antialias: Boolean = true,
+
+    @ColumnInfo(name = "round_effect")
+    val roundBrush: Boolean = true,
+
+    @ColumnInfo(name = "round_radius")
+    val roundRadius: Float = 30.0f,
+
+    @ColumnInfo(name = "enable_dash")
+    val enableDash: Boolean = false,
 
     @ColumnInfo(name = "color")
     @ColorInt val color: Int = Color.BLACK,
@@ -95,5 +107,20 @@ data class Brush (
         }
 
     }
+
+    @Parcelize
+    @JsonClass(generateAdapter = true)
+    data class DashStyle (
+
+        @ColumnInfo(name = "on_len")
+        val on: Float = 5.0f,
+
+        @ColumnInfo(name = "off_len")
+        val off: Float = 5.0f,
+
+        @ColumnInfo(name = "phase")
+        val phase: Float = 0.0f
+
+    ) : Parcelable
 
 }

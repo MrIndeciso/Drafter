@@ -25,7 +25,7 @@ class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
 
     private val brushButtonList = mutableListOf<BrushButton>()
     private val brushAdapter = BrushButtonAdapter(brushButtonList) {
-
+        drawViewModel.stylusViewController.selectedBrush = it.brush
     }
 
     override fun onStart() {

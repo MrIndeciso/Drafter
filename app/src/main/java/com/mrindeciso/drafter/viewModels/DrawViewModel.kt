@@ -4,8 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.mrindeciso.util.data.Brush
 import com.mrindeciso.util.data.Note
-import com.mrindeciso.util.db.dao.BrushDAO
-import com.mrindeciso.util.db.dao.NoteDAO
 import com.mrindeciso.util.pref.StylusPrefManager
 import com.mrindeciso.util.repo.BrushRepo
 import com.mrindeciso.util.repo.NotesRepo
@@ -21,8 +19,7 @@ import javax.inject.Inject
 class DrawViewModel @Inject constructor (
     private val savedStateHandle: SavedStateHandle,
     private val notesRepo: NotesRepo,
-    private val brushRepo: BrushRepo,
-    private val stylusPrefManager: StylusPrefManager,
+    brushRepo: BrushRepo,
 ) : ViewModel() {
 
     private val note: Note
@@ -35,7 +32,7 @@ class DrawViewModel @Inject constructor (
                 _stylusViewController!!
             else
                 StylusViewController(
-                    note, stylusPrefManager
+                    note
                 ).also {
                     _stylusViewController = it
                 }

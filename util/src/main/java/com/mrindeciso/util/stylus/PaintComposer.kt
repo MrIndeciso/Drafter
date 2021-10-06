@@ -1,5 +1,8 @@
 package com.mrindeciso.util.stylus
 
+import android.graphics.ComposePathEffect
+import android.graphics.CornerPathEffect
+import android.graphics.DashPathEffect
 import android.graphics.Paint
 import com.mrindeciso.util.data.Brush
 
@@ -21,6 +24,20 @@ object PaintComposer {
         paint.alpha = input.alpha
 
         paint.setShadowLayer(input.shadow.radius, input.shadow.dx, input.shadow.dy, input.shadow.shadowColor)
+
+        paint.pathEffect = when {
+            input.enableDash && input.roundBrush ->
+                ComposePathEffect(
+                    DashPathEffect(floatArrayOf(input.dashStyle.off, input.dashStyle.on), input.dashStyle.phase),
+                    CornerPathEffect(input.roundRadius)
+                )
+            input.roundBrush ->
+                CornerPathEffect(input.roundRadius)
+            input.enableDash ->
+                DashPathEffect(floatArrayOf(input.dashStyle.off, input.dashStyle.on), input.dashStyle.phase)
+            else ->
+                paint.pathEffect
+        }
 
         return paint
     }
