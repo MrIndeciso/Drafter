@@ -10,7 +10,7 @@ class BrushButtonViewHolder(
 
     fun bind(brush: BrushButton) = binding.apply {
         textView.text = brush.name
-        imageView.setImageResource(brush.image)
+        imageView.setImageBitmap(brush.image)
     }
 
     fun registerOnClick(onClick: (BrushButton) -> Unit, brush: BrushButton) {

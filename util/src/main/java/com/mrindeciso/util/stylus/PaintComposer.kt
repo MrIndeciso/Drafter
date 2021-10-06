@@ -3,7 +3,7 @@ package com.mrindeciso.util.stylus
 import android.graphics.Paint
 import com.mrindeciso.util.data.Brush
 
-class PaintComposer {
+object PaintComposer {
 
     fun convertBrushToPaint(input: Brush): Paint {
         val paint = Paint()

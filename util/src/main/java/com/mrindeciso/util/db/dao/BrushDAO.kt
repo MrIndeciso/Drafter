@@ -11,12 +11,15 @@ interface BrushDAO {
     fun getAllBrushes(): Flow<List<Brush>>
 
     @Insert
-    fun insertBrush(vararg brush: Brush)
+    suspend fun insertBrush(vararg brush: Brush)
 
     @Delete
-    fun deleteBrush(brush: Brush)
+    suspend fun deleteBrush(brush: Brush)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateBrush(brush: Brush)
+    suspend fun updateBrush(brush: Brush)
+
+    @Query("SELECT COUNT(id) FROM brushes")
+    suspend fun count(): Int
 
 }

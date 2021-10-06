@@ -1,13 +1,13 @@
 package com.mrindeciso.drafter.ui.drawFragment
 
-import androidx.annotation.DrawableRes
+import android.graphics.Bitmap
 import com.mrindeciso.util.data.Brush
 
 data class BrushButton(
 
     val name: String,
 
-    @DrawableRes val image: Int,
+    val image: Bitmap,
 
     val brush: Brush,
 
