@@ -6,7 +6,7 @@ import android.graphics.Path
 import com.mrindeciso.util.data.Brush
 import com.mrindeciso.util.stylus.PaintComposer
 
-val brushPath = Path().apply {
+private val brushPath = Path().apply {
     moveTo(.0f, 128.0f)
     lineTo(32.0f, 32.0f)
     lineTo(96.0f, 96.0f)

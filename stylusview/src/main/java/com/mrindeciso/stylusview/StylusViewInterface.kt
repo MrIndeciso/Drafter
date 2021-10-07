@@ -3,6 +3,7 @@ package com.mrindeciso.stylusview
 import android.graphics.Canvas
 import android.view.DragEvent
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 
 interface StylusViewInterface {
 
@@ -10,6 +11,6 @@ interface StylusViewInterface {
 
     fun onTouchEvent(event: MotionEvent): Boolean
 
-    fun onDragEvent(event: DragEvent): Boolean
+    fun onScale(detector: ScaleGestureDetector): Boolean
 
 }

@@ -8,7 +8,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.mrindeciso.util.stylus.PaintComposer
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -51,6 +53,20 @@ data class Brush (
     val shadow: Shadow = Shadow.NO_SHADOW
 
     ) : Parcelable {
+
+    @Transient
+    @IgnoredOnParcel
+    private var _canvasBrush: Paint? = null
+
+    @IgnoredOnParcel
+    val canvasBrush: Paint
+        get() = if (_canvasBrush != null) {
+            _canvasBrush!!
+        } else {
+            PaintComposer.convertBrushToPaint(this).also {
+                _canvasBrush = it
+            }
+        }
 
     enum class Style {
         STROKE,

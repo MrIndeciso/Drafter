@@ -36,7 +36,7 @@ class DrawViewModel @Inject constructor (
                 _stylusViewController!!
             else
                 StylusViewController(
-                    note
+                    note, viewModelScope
                 ).also {
                     _stylusViewController = it
                 }
