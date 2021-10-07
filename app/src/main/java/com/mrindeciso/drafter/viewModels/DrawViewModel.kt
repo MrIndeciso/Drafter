@@ -2,6 +2,7 @@ package com.mrindeciso.drafter.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mrindeciso.util.data.Brush
 import com.mrindeciso.util.data.Note
 import com.mrindeciso.util.pref.StylusPrefManager
@@ -10,7 +11,9 @@ import com.mrindeciso.util.repo.NotesRepo
 import com.mrindeciso.util.stylus.StylusViewController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
@@ -19,6 +22,7 @@ import javax.inject.Inject
 class DrawViewModel @Inject constructor (
     private val savedStateHandle: SavedStateHandle,
     private val notesRepo: NotesRepo,
+    private val stylusPrefManager: StylusPrefManager,
     brushRepo: BrushRepo,
 ) : ViewModel() {
 
@@ -43,6 +47,10 @@ class DrawViewModel @Inject constructor (
         if (!savedStateHandle.contains("note")) {
             savedStateHandle.set("note", notesRepo.getNote(noteid))
         }
+    }
+
+    fun onPause() = viewModelScope.launch(Dispatchers.IO) {
+        notesRepo.updateNote(note)
     }
 
 }

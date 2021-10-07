@@ -11,15 +11,15 @@ interface NoteDAO {
     fun getAllNotes(): Flow<List<Note>>
 
     @Query("SELECT * FROM notes WHERE id=:id LIMIT 1")
-    fun getNote(id: Int): Note
+    suspend fun getNote(id: Int): Note
 
     @Insert
-    fun insertNote(vararg note: Note)
+    suspend fun insertNote(vararg note: Note)
 
     @Delete
-    fun deleteNote(note: Note)
+    suspend fun deleteNote(note: Note)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateNote(note: Note)
+    suspend fun updateNote(note: Note)
 
 }

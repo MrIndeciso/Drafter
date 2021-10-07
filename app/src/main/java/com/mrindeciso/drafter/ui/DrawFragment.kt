@@ -17,6 +17,7 @@ import com.mrindeciso.util.viewbinding.ViewBoundFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
@@ -40,10 +41,12 @@ class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
 
         viewLifecycleOwner.lifecycleScope.launch {
             drawViewModel.loadNote(args.noteId)
+            binding.stylusView.invalidate()
 
             binding.stylusView.viewController = drawViewModel.stylusViewController
 
             drawViewModel.brushes.collect {
+                val needsSetup = brushButtonList.isEmpty()
                 brushButtonList.clear()
                 brushButtonList.addAll(
                     it.map { brush -> BrushButton("Brush", brush.renderPreview(), false, brush) }
@@ -51,9 +54,18 @@ class DrawFragment : ViewBoundFragment<FragmentDrawBinding>(
                 brushButtonList.add(
                     BrushButton("Eraser", AppCompatResources.getDrawable(requireContext(), R.drawable.ic_eraser)!!.toBitmap(64, 64), true, Brush())
                 )
+                if (needsSetup) {
+                    drawViewModel.stylusViewController.selectedBrush = brushButtonList.first().brush
+                }
                 brushAdapter.notifyDataSetChanged()
             }
         }
+    }
+
+    override fun onPause() {
+        drawViewModel.onPause()
+
+        super.onPause()
     }
 
     private fun setupViews() {

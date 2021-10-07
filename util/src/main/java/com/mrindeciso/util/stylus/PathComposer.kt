@@ -19,7 +19,7 @@ object PathComposer {
         var dY = list.first().y
 
         list.drop(1).forEach { line ->
-            path.quadTo(dX, dY, line.x, line.y)
+            path.quadTo((dX + line.x)/2, (dY + line.y)/2, line.x, line.y)
             dX = line.x
             dY = line.y
         }

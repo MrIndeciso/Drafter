@@ -17,4 +17,7 @@ class NotesRepo @Inject constructor(
     @WorkerThread
     suspend fun getNote(id: Int) = noteDao.getNote(id)
 
+    @WorkerThread
+    suspend fun updateNote(note: Note) = noteDao.updateNote(note)
+
 }
